@@ -1,0 +1,694 @@
+/* Colores y ajustes generales. */
+:root {
+    color-scheme: dark;
+    --fondo: #101716;
+    --tarjeta: #192321;
+    --texto: #f2f5ee;
+    --texto-suave: #afbdb7;
+    --acento: #d1f59b;
+    --borde: #35443d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #23372b 0%, var(--fondo) 65%);
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.contenedor {
+    width: min(1040px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+/* Encabezado y presentación. */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto);
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+}
+
+.marca-icono {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--acento);
+    color: var(--fondo);
+    font-size: 18px;
+    letter-spacing: -1px;
+}
+
+.lema,
+.pie {
+    color: var(--texto-suave);
+    font-size: 13px;
+}
+
+.presentacion {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 60px 0 40px;
+    text-align: center;
+}
+
+.etiqueta {
+    margin: 0 0 18px;
+    color: var(--acento);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(36px, 5.5vw, 58px);
+    font-weight: 750;
+    line-height: 1.12;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    color: var(--acento);
+}
+
+.descripcion {
+    max-width: 490px;
+    margin: 22px auto 0;
+    color: var(--texto-suave);
+    font-size: 16px;
+}
+
+/* Las dos opciones de la pantalla inicial. */
+.opciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    background: var(--tarjeta);
+}
+
+.tarjeta-crear {
+    border-color: #62774e;
+    background: linear-gradient(145deg, #263425, var(--tarjeta));
+}
+
+.cabecera-tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.icono-tarjeta {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #36482b;
+    color: var(--acento);
+    font-size: 28px;
+    line-height: 1;
+}
+
+.icono-unirse {
+    background: #2b3b36;
+    color: #bce6d7;
+}
+
+.identificador {
+    color: var(--texto-suave);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: -0.7px;
+}
+
+.texto-tarjeta {
+    margin: 10px 0 26px;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+/* Campos y botones. */
+.formulario {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.campos-unirse {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    min-height: 49px;
+    padding: 12px 14px;
+    border: 1px solid #46564e;
+    border-radius: 10px;
+    background: #111b17;
+    color: var(--texto);
+}
+
+input::placeholder {
+    color: #91a099;
+    font-size: 13px;
+}
+
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--acento);
+    outline-offset: 4px;
+}
+
+.ayuda {
+    margin: 10px 0 24px;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    margin-top: auto;
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.boton span {
+    font-size: 21px;
+}
+
+.boton-principal {
+    background: var(--acento);
+    color: #17220e;
+}
+
+.boton-principal:hover {
+    background: #e0ffb4;
+}
+
+.boton-secundario {
+    border-color: #6c8174;
+    background: #28382f;
+    color: var(--texto);
+}
+
+.boton-secundario:hover {
+    background: #354b3e;
+}
+
+.nota {
+    margin: 28px 0 40px;
+    color: var(--texto-suave);
+    font-size: 13px;
+    text-align: center;
+}
+
+.pie {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 0;
+    border-top: 1px solid var(--borde);
+}
+
+/* En celular, las tarjetas se muestran una debajo de la otra. */
+@media (max-width: 700px) {
+    .contenedor {
+        width: calc(100% - 32px);
+    }
+
+    .encabezado {
+        padding: 22px 0;
+    }
+
+    .lema {
+        display: none;
+    }
+
+    .presentacion {
+        padding: 42px 0 30px;
+    }
+
+    .etiqueta {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    h1 {
+        letter-spacing: -1.3px;
+    }
+
+    .opciones,
+    .campos-unirse {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta {
+        padding: 24px;
+    }
+
+    .pie {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+}
+
+/* Sala: presentación, código y distribución de las columnas. */
+.sala-volver {
+    color: var(--texto-suave);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.sala-volver:hover {
+    color: var(--acento);
+}
+
+.sala-presentacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 40px 0 30px;
+}
+
+.sala-etiquetas {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.sala-etiquetas .etiqueta {
+    margin: 0;
+    letter-spacing: 1.2px;
+}
+
+.sala-insignia {
+    padding: 4px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    color: var(--texto-suave);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.sala h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -1.2px;
+}
+
+.sala-presentacion p {
+    margin: 12px 0 0;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+.sala-codigo {
+    min-width: 150px;
+    padding: 14px 24px;
+    border: 1px dashed #62774e;
+    border-radius: 14px;
+    background: #202e22;
+    text-align: center;
+}
+
+.sala-codigo span {
+    display: block;
+    color: var(--texto-suave);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.sala-codigo strong {
+    color: var(--acento);
+    font-size: 28px;
+    letter-spacing: 5px;
+}
+
+.sala-columnas {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 22px;
+}
+
+.sala-principal,
+.sala-lateral {
+    display: grid;
+    min-width: 0;
+    gap: 22px;
+}
+
+.sala .tarjeta {
+    min-width: 0;
+    padding: 24px;
+}
+
+.sala h2 {
+    font-size: 22px;
+}
+
+.sala-titulo-seccion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+/* Vista de ejemplo del reproductor. No carga videos todavía. */
+.sala-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    aspect-ratio: 16 / 9;
+    min-height: 230px;
+    padding: 22px;
+    border: 1px solid #364b3b;
+    border-radius: 14px;
+    background: radial-gradient(ellipse at top right, #466240, #111a15 70%);
+    text-align: center;
+}
+
+.sala-video-etiqueta {
+    color: #c1cfbf;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.sala-disco {
+    display: grid;
+    place-items: center;
+    width: 110px;
+    height: 110px;
+    border: 2px solid #405440;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle, #101713 0 5px, #263329 6px 7px);
+    box-shadow: 0 12px 30px #080d0966;
+}
+
+.sala-disco span {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--acento);
+    color: var(--fondo);
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.sala-video p {
+    margin: 0;
+    color: #d6e3cf;
+    font-size: 12px;
+}
+
+.sala-tema-actual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 0;
+}
+
+.sala-tema-actual .etiqueta {
+    margin: 0 0 7px;
+    font-size: 9px;
+    letter-spacing: 1.2px;
+}
+
+.sala-tema-actual h3 {
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -0.4px;
+}
+
+.sala-tema-actual p:last-child {
+    margin: 5px 0 0;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.imagen-tocadisco{
+    width:140px;
+    max-width:100%;
+    height:auto;
+    display:block;
+    filter: invert(1);
+    mix-blend-mode: screen;
+}
+
+.sala-icono-musica {
+    color: var(--acento);
+    font-size: 34px;
+}
+
+.sala-controles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.sala-controles .boton {
+    font-size: 13px;
+}
+
+/* Cola de canciones y botones de voto. */
+.sala-cantidad,
+.sala-texto-suave {
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.sala-texto-suave {
+    margin: -8px 0 10px;
+}
+
+.sala-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sala-cancion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.sala-cancion:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.sala-portada {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sala-portada-uno {
+    background: #484131;
+    color: #f0dcae;
+}
+
+.sala-portada-dos {
+    background: #374a46;
+    color: #bce6d7;
+}
+
+.sala-portada-tres {
+    background: #43394d;
+    color: #decbf0;
+}
+
+.sala-datos-cancion {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.sala-datos-cancion h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.sala-datos-cancion p {
+    margin: 3px 0;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.sala-datos-cancion small {
+    color: var(--texto-suave);
+    font-size: 10px;
+}
+
+.sala-votar {
+    flex-shrink: 0;
+    min-width: 52px;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid #526747;
+    border-radius: 10px;
+    background: #293725;
+    color: var(--acento);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sala-votar:hover {
+    background: #394b31;
+}
+
+/* Formulario lateral y breve guía de uso. */
+.sala-formulario {
+    gap: 18px;
+}
+
+.sala-formulario .boton {
+    margin-top: 6px;
+    font-size: 13px;
+}
+
+.sala-guia {
+    padding: 4px 8px;
+}
+
+.sala-guia h2 {
+    font-size: 16px;
+    letter-spacing: -0.3px;
+}
+
+.sala-guia ol {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.sala-guia li {
+    margin-bottom: 12px;
+    padding-left: 6px;
+}
+
+.sala-guia strong {
+    color: var(--texto);
+}
+
+@media (max-width: 800px) {
+    .sala-columnas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .sala-presentacion {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 28px;
+    }
+
+    .sala-codigo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .sala .tarjeta {
+        padding: 18px;
+    }
+
+    .sala-controles .boton {
+        padding: 10px 12px;
+    }
+
+    .sala-cancion {
+        gap: 10px;
+    }
+
+    .sala-portada {
+        width: 40px;
+        height: 40px;
+    }
+}

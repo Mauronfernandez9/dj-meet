@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101716">
+    <meta name="description" content="Creá una sala, compartí canciones y elegí con tus amigos qué suena después.">
+    <title>DJ Meet — La música la elegimos todos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+        <header class="encabezado">
+            <a class="marca" href="./" aria-label="DJ Meet, inicio">
+                <span class="marca-icono" aria-hidden="true">DJ</span>
+                <span>DJ Meet</span>
+            </a>
+            <span class="lema">Un buen plan empieza con música.</span>
+        </header>
+
+        <main>
+            <section class="presentacion" aria-labelledby="titulo-principal">
+                <p class="etiqueta">LA PRÓXIMA CANCIÓN LA ELIGEN USTEDES</p>
+                <h1 id="titulo-principal">Una sala.<br><span>Todos ponen música.</span></h1>
+                <p class="descripcion">
+                    Creá una sala, invitá a tus amigos y voten qué suena después.
+                    Cada juntada tiene su propia banda sonora.
+                </p>
+            </section>
+
+            <div class="opciones">
+                <!-- Formulario para quien organiza la juntada. -->
+                <section class="tarjeta tarjeta-crear" aria-labelledby="titulo-crear">
+                    <div class="cabecera-tarjeta">
+                        <span class="icono-tarjeta" aria-hidden="true">+</span>
+                        <span class="identificador">SOY ANFITRIÓN</span>
+                    </div>
+                    <h2 id="titulo-crear">Armá la juntada</h2>
+                    <p class="texto-tarjeta">Tu sala, un código para compartir y la música entre todos.</p>
+
+                    <form class="formulario" id="form-crear-sala">
+                        <div class="campo">
+                            <label for="nombre-sala">Nombre de la sala</label>
+                            <input type="text" id="nombre-sala" name="nombre_sala"
+                                placeholder="Ej. Viernes con amigos" maxlength="60" required>
+                        </div>
+                        <p class="ayuda">Elegí un nombre que reconozca todo el grupo.</p>
+                        <!-- Los botones se conectarán con JavaScript más adelante. -->
+                        <button class="boton boton-principal" type="button" id="boton-crear">
+                            Crear sala <span aria-hidden="true">→</span>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Formulario para quienes tienen un código de sala. -->
+                <section class="tarjeta" aria-labelledby="titulo-unirse">
+                    <div class="cabecera-tarjeta">
+                        <span class="icono-tarjeta icono-unirse" aria-hidden="true">↗</span>
+                        <span class="identificador">TENGO UN CÓDIGO</span>
+                    </div>
+                    <h2 id="titulo-unirse">Sumate al plan</h2>
+                    <p class="texto-tarjeta">Entrá a la sala y hacé escuchar tus canciones favoritas.</p>
+
+                    <form class="formulario" id="form-unirse-sala">
+                        <div class="campos-unirse">
+                            <div class="campo">
+                                <label for="nombre-participante">Tu nombre</label>
+                                <input type="text" id="nombre-participante" name="nombre"
+                                    placeholder="Ej. Alex" autocomplete="nickname" maxlength="40" required>
+                            </div>
+                            <div class="campo">
+                                <label for="codigo-sala">Código de sala</label>
+                                <input type="text" id="codigo-sala" name="codigo"
+                                    placeholder="Ej. K7M2" autocomplete="off" spellcheck="false" required>
+                            </div>
+                        </div>
+                        <p class="ayuda">Pedile el código a quien creó la sala.</p>
+                        <button class="boton boton-secundario" type="button" id="boton-unirse">
+                            Entrar a la sala <span aria-hidden="true">→</span>
+                        </button>
+                    </form>
+                </section>
+            </div>
+
+            <p class="nota">Proponé una canción. Votá tu favorita. Compartí el momento.</p>
+        </main>
+
+        <footer class="pie">
+            <span>DJ Meet</span>
+            <span>La música suena mejor en compañía.</span>
+        </footer>
+    </div>
+</body>
+</html>
