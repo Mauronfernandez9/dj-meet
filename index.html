@@ -7,6 +7,7 @@
     <meta name="description" content="Creá una sala, compartí canciones y elegí con tus amigos qué suena después.">
     <title>DJ Meet — La música la elegimos todos</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/inicio.js" defer></script>
 </head>
 <body>
     <div class="contenedor">
@@ -38,7 +39,12 @@
                     <h2 id="titulo-crear">Armá la juntada</h2>
                     <p class="texto-tarjeta">Tu sala, un código para compartir y la música entre todos.</p>
 
-                    <form class="formulario" id="form-crear-sala">
+                    <form class="formulario" id="form-crear-sala" action="api/salas.php" method="post">
+                        <div class="campo">
+                            <label for="nombre-anfitrion">Tu nombre</label>
+                            <input type="text" id="nombre-anfitrion" name="nombre_anfitrion"
+                                placeholder="Ej. Mauro" autocomplete="nickname" maxlength="40" required>
+                        </div>
                         <div class="campo">
                             <label for="nombre-sala">Nombre de la sala</label>
                             <input type="text" id="nombre-sala" name="nombre_sala"
@@ -46,7 +52,7 @@
                         </div>
                         <p class="ayuda">Elegí un nombre que reconozca todo el grupo.</p>
                         <!-- Los botones se conectarán con JavaScript más adelante. -->
-                        <button class="boton boton-principal" type="button" id="boton-crear">
+                        <button class="boton boton-principal" type="submit" id="boton-crear">
                             Crear sala <span aria-hidden="true">→</span>
                         </button>
                     </form>
@@ -61,7 +67,7 @@
                     <h2 id="titulo-unirse">Sumate al plan</h2>
                     <p class="texto-tarjeta">Entrá a la sala y hacé escuchar tus canciones favoritas.</p>
 
-                    <form class="formulario" id="form-unirse-sala">
+                    <form class="formulario" id="form-unirse-sala" action="api/participantes.php" method="post">
                         <div class="campos-unirse">
                             <div class="campo">
                                 <label for="nombre-participante">Tu nombre</label>
@@ -71,11 +77,11 @@
                             <div class="campo">
                                 <label for="codigo-sala">Código de sala</label>
                                 <input type="text" id="codigo-sala" name="codigo"
-                                    placeholder="Ej. K7M2" autocomplete="off" spellcheck="false" required>
+                                    placeholder="Ej. 56B0C650" maxlength="8" autocomplete="off" spellcheck="false" required>
                             </div>
                         </div>
                         <p class="ayuda">Pedile el código a quien creó la sala.</p>
-                        <button class="boton boton-secundario" type="button" id="boton-unirse">
+                        <button class="boton boton-secundario" type="submit" id="boton-unirse">
                             Entrar a la sala <span aria-hidden="true">→</span>
                         </button>
                     </form>

@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#101716">
     <title>Sala — DJ Meet</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/sala.js" defer></script>
 </head>
 <body>
     <div class="contenedor">
@@ -23,14 +24,14 @@
                 <div>
                     <div class="sala-etiquetas">
                         <span class="etiqueta">TU JUNTADA, TU MÚSICA</span>
-                        <span class="sala-insignia">Vista de ejemplo</span>
+                        <span class="sala-insignia" id="estado-sala">Cargando sala...</span>
                     </div>
-                    <h1 id="titulo-sala">Viernes con amigos</h1>
+                    <h1 id="titulo-sala">Cargando sala...</h1>
                     <p>Compartí el código y elijan juntos qué suena después.</p>
                 </div>
                 <div class="sala-codigo">
                     <span>CÓDIGO DE SALA</span>
-                    <strong>K7M2</strong>
+                    <strong id="sala-codigo-strong">...</strong>
                 </div>
             </section>
 
@@ -40,7 +41,7 @@
                     <section class="tarjeta sala-reproductor" aria-labelledby="titulo-reproductor">
                         <div class="sala-titulo-seccion">
                             <h2 id="titulo-reproductor">En el parlante</h2>
-                            <span class="sala-insignia">Anfitrión</span>
+                            <span class="sala-insignia" id="rol-sala">Participante</span>
                         </div>
 
                         <div class="sala-video" role="img" aria-label="Vista de ejemplo del espacio para el reproductor de YouTube">
@@ -62,10 +63,10 @@
 
                         <!-- Controles visuales: todavía no reproducen ni cambian canciones. -->
                         <div class="sala-controles">
-                            <button class="boton boton-principal" type="button" id="boton-reproducir">
+                            <button class="boton boton-principal" type="button" id="boton-reproducir" disabled>
                                 Reproducir <span aria-hidden="true">▶</span>
                             </button>
-                            <button class="boton boton-secundario" type="button" id="boton-siguiente">
+                            <button class="boton boton-secundario" type="button" id="boton-siguiente" disabled>
                                 Siguiente <span aria-hidden="true">→</span>
                             </button>
                         </div>
