@@ -11,3 +11,5 @@ COPY js/ /var/www/html/js/
 COPY index.html sala.html /var/www/html/
 
 EXPOSE 80
+
+CMD ["sh", "-c", "a2dismod mpm_event mpm_worker && a2enmod mpm_prefork && apache2ctl -t && exec apache2-foreground"]
