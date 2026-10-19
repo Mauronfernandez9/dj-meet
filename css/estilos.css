@@ -603,6 +603,35 @@ a:focus-visible {
     font-size: 10px;
 }
 
+.sala-eliminar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: transparent;
+    color: #e7b1a8;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.sala-eliminar:hover:not(:disabled) {
+    border-color: #80524c;
+    background: #332422;
+    color: #ffd1c7;
+}
+
+.sala-eliminar:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
 .sala-votar {
     flex-shrink: 0;
     min-width: 52px;
@@ -616,7 +645,7 @@ a:focus-visible {
     cursor: pointer;
 }
 
-.sala-votar:hover {
+.sala-votar:hover:not(:disabled) {
     background: #394b31;
 }
 
@@ -690,5 +719,95 @@ a:focus-visible {
     .sala-portada {
         width: 40px;
         height: 40px;
+    }
+}
+
+.sala-youtube {
+    display: block;
+    width: 100%;
+    min-height: 230px;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    background: #101716;
+}
+
+.sala-video[hidden],
+.sala-youtube[hidden],
+.sala-enlace[hidden] {
+    display: none;
+}
+
+.sala-ayuda-reproductor {
+    margin: 12px 0 4px;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.sala-enlace {
+    color: var(--acento);
+    font-size: 12px;
+}
+
+.sala-tema-actual small {
+    display: block;
+    margin-top: 5px;
+    color: var(--texto-suave);
+    font-size: 11px;
+}
+
+.sala-acciones {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sala-acciones button {
+    min-height: 36px;
+    font-size: 12px;
+}
+
+.sala-elegir {
+    padding: 8px 12px;
+    border: 1px solid #526747;
+    border-radius: 8px;
+    background: #293725;
+    color: var(--acento);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.sala-elegir:hover {
+    background: #394b31;
+}
+
+.sala-votar:disabled {
+    opacity: 0.65;
+    cursor: default;
+}
+
+#mensaje-cola {
+    margin: 12px 0 0;
+}
+
+#mensaje-cola:empty {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .sala-cancion {
+        flex-wrap: wrap;
+    }
+
+    .sala-datos-cancion {
+        flex-basis: 100%;
+    }
+
+    .sala-acciones {
+        width: 100%;
+        justify-content: flex-start;
     }
 }

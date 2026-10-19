@@ -19,7 +19,7 @@
         </header>
 
         <main class="sala">
-            <!-- Nombre y código de una sala de ejemplo. -->
+            
             <section class="sala-presentacion" aria-labelledby="titulo-sala">
                 <div>
                     <div class="sala-etiquetas">
@@ -37,14 +37,14 @@
 
             <div class="sala-columnas">
                 <div class="sala-principal">
-                    <!-- Maqueta del reproductor. Más adelante irá el iframe de YouTube. -->
+                   
                     <section class="tarjeta sala-reproductor" aria-labelledby="titulo-reproductor">
                         <div class="sala-titulo-seccion">
                             <h2 id="titulo-reproductor">En el parlante</h2>
                             <span class="sala-insignia" id="rol-sala">Participante</span>
                         </div>
 
-                        <div class="sala-video" role="img" aria-label="Vista de ejemplo del espacio para el reproductor de YouTube">
+                        <div class="sala-video" id="vista-espera">
                             <span class="sala-video-etiqueta">REPRODUCTOR DE YOUTUBE</span>
                             
                             <img class="imagen-tocadisco" src="./img/tocadisco.jpg">
@@ -52,16 +52,21 @@
                             <p>Un buen tema cambia el plan.</p>
                         </div>
 
+                        <iframe id="reproductor-youtube" class="sala-youtube" title="Reproductor de YouTube"
+                            allow="autoplay; encrypted-media; picture-in-picture"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen hidden></iframe>
+                        <p id="mensaje-reproductor" class="sala-ayuda-reproductor">Elegí un tema de la cola para comenzar.</p>
+                        <a id="enlace-youtube" class="sala-enlace" target="_blank" rel="noopener noreferrer" hidden>Ver en YouTube</a>
+
                         <div class="sala-tema-actual">
                             <div>
                                 <p class="etiqueta">CANCIÓN SELECCIONADA</p>
-                                <h3>De música ligera</h3>
-                                <p>Soda Stereo <span aria-hidden="true">·</span> Propuesta por vos</p>
+                                <h3 id="titulo-seleccionada">Todavía no hay una canción seleccionada</h3>
+                                <p id="artista-seleccionada">El anfitrión puede elegir una de la cola.</p>
+                                <small id="autor-seleccionada"></small>
                             </div>
-                            <span class="sala-icono-musica" aria-hidden="true">♫</span>
                         </div>
 
-                        <!-- Controles visuales: todavía no reproducen ni cambian canciones. -->
                         <div class="sala-controles">
                             <button class="boton boton-principal" type="button" id="boton-reproducir" disabled>
                                 Reproducir <span aria-hidden="true">▶</span>
@@ -72,49 +77,17 @@
                         </div>
                     </section>
 
-                    <!-- Propuestas y votos de ejemplo. -->
                     <section class="tarjeta sala-cola" aria-labelledby="titulo-cola">
                         <div class="sala-titulo-seccion">
                             <h2 id="titulo-cola">Lo que sigue</h2>
-                            <span class="sala-cantidad">3 propuestas</span>
+                            <span class="sala-cantidad" id="cantidad-propuestas"></span>
                         </div>
                         <p class="sala-texto-suave">Las más votadas van primero.</p>
 
-                        <ol class="sala-lista">
-                            <li class="sala-cancion">
-                                <span class="sala-portada sala-portada-uno" aria-hidden="true">GC</span>
-                                <div class="sala-datos-cancion">
-                                    <h3>Crimen</h3>
-                                    <p>Gustavo Cerati</p>
-                                    <small>La propone Ana</small>
-                                </div>
-                                <button class="sala-votar" type="button" aria-label="Votar por Crimen. 5 votos de ejemplo">
-                                    <span aria-hidden="true">↑</span> 5
-                                </button>
-                            </li>
-                            <li class="sala-cancion">
-                                <span class="sala-portada sala-portada-dos" aria-hidden="true">SS</span>
-                                <div class="sala-datos-cancion">
-                                    <h3>Persiana americana</h3>
-                                    <p>Soda Stereo</p>
-                                    <small>La propone Nico</small>
-                                </div>
-                                <button class="sala-votar" type="button" aria-label="Votar por Persiana americana. 3 votos de ejemplo">
-                                    <span aria-hidden="true">↑</span> 3
-                                </button>
-                            </li>
-                            <li class="sala-cancion">
-                                <span class="sala-portada sala-portada-tres" aria-hidden="true">EV</span>
-                                <div class="sala-datos-cancion">
-                                    <h3>Lamento boliviano</h3>
-                                    <p>Enanitos Verdes</p>
-                                    <small>La propone Leo</small>
-                                </div>
-                                <button class="sala-votar" type="button" aria-label="Votar por Lamento boliviano. 2 votos de ejemplo">
-                                    <span aria-hidden="true">↑</span> 2
-                                </button>
-                            </li>
+                        <ol class="sala-lista" id="lista-propuesta">
+                            
                         </ol>
+                        <p class="sala-texto-suave" id="mensaje-cola" role="status"></p>
                     </section>
                 </div>
 
@@ -127,7 +100,7 @@
                         <h2 id="titulo-proponer">Sumá un tema</h2>
                         <p class="texto-tarjeta">Ese que siempre querés escuchar también tiene lugar acá.</p>
 
-                        <form class="formulario sala-formulario" id="form-proponer-cancion">
+                        <form class="formulario sala-formulario" id="form-proponer-cancion" method="post" action="api/propuestas.php">
                             <div class="campo">
                                 <label for="enlace-cancion">Enlace de YouTube</label>
                                 <input type="url" id="enlace-cancion" name="youtube_url"
@@ -144,7 +117,7 @@
                                 <input type="text" id="artista-cancion" name="artista"
                                     placeholder="Ej. Soda Stereo" maxlength="100" required>
                             </div>
-                            <button class="boton boton-principal" type="button" id="boton-proponer">
+                            <button class="boton boton-principal" type="submit" id="boton-proponer">
                                 Agregar a la cola <span aria-hidden="true">+</span>
                             </button>
                         </form>
