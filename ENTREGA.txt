@@ -1,0 +1,20 @@
+TP1 - Aplicaciones Móviles y Cloud Computing
+
+Tema: DJ Meet, salas colaborativas para proponer y votar canciones de YouTube.
+Integrantes (apellido y nombre):
+- Fernandez Mauro Nicolas
+- Franco Cobatti
+
+URL pública del frontend: PENDIENTE
+URL pública de la API: PENDIENTE (dominio/api/propuestas.php?salaId=ID)
+
+Para probar: crear una sala en el inicio y luego abrirla desde otro navegador con el código.
+La API usa la sesión de ese navegador. Se puede obtener el id de sala en la respuesta de api/salas.php?codigo=CODIGO.
+
+Repositorio: https://github.com/Mauronfernandez9/dj-meet
+
+
+Proveedor cloud: PENDIENTE de confirmar y desplegar (guía preparada para Railway).
+Servicios externos: YouTube desde el navegador; iTunes Search API desde PHP.
+
+

@@ -7,6 +7,7 @@
     <title>Sala — DJ Meet</title>
     <link rel="stylesheet" href="css/estilos.css">
     <script src="js/sala.js" defer></script>
+    <script src="js/servicios.js" defer></script>
 </head>
 <body>
     <div class="contenedor">
@@ -47,7 +48,7 @@
                         <div class="sala-video" id="vista-espera">
                             <span class="sala-video-etiqueta">REPRODUCTOR DE YOUTUBE</span>
                             
-                            <img class="imagen-tocadisco" src="./img/tocadisco.jpg">
+                            <img class="imagen-tocadisco" src="./img/tocadisco.jpg" alt="Tocadiscos">
                             
                             <p>Un buen tema cambia el plan.</p>
                         </div>
@@ -100,6 +101,18 @@
                         <h2 id="titulo-proponer">Sumá un tema</h2>
                         <p class="texto-tarjeta">Ese que siempre querés escuchar también tiene lugar acá.</p>
 
+                        <form class="formulario sala-buscador" id="form-buscar-cancion">
+                            <div class="campo">
+                                <label for="busqueda-cancion">Buscar título y artista (opcional)</label>
+                                <input type="search" id="busqueda-cancion" placeholder="Ej. Soda Stereo De música ligera"
+                                    minlength="2" maxlength="200" required>
+                            </div>
+                            <button class="boton boton-secundario" type="submit" id="boton-buscar-cancion">Buscar canción</button>
+                            <p class="ayuda">Datos del catálogo de iTunes. También podés escribirlos a mano.</p>
+                        </form>
+                        <p class="sala-texto-suave" id="mensaje-busqueda" role="status"></p>
+                        <ul class="sala-resultados" id="resultados-busqueda"></ul>
+
                         <form class="formulario sala-formulario" id="form-proponer-cancion" method="post" action="api/propuestas.php">
                             <div class="campo">
                                 <label for="enlace-cancion">Enlace de YouTube</label>
@@ -110,7 +123,7 @@
                             <div class="campo">
                                 <label for="titulo-cancion">Título de la canción</label>
                                 <input type="text" id="titulo-cancion" name="titulo"
-                                    placeholder="Ej. De música ligera" maxlength="120" required>
+                                    placeholder="Ej. De música ligera" maxlength="150" required>
                             </div>
                             <div class="campo">
                                 <label for="artista-cancion">Artista</label>

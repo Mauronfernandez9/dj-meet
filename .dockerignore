@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+*.log
+sql
+docs
+README.md
+ENTREGA.txt
+tests
+.vscode

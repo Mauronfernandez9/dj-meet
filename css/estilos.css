@@ -811,3 +811,39 @@ a:focus-visible {
         justify-content: flex-start;
     }
 }
+
+.sala-buscador {
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--borde);
+}
+
+.sala-resultados {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 24px;
+}
+
+.sala-resultados:empty,
+#mensaje-busqueda:empty {
+    display: none;
+}
+
+.sala-resultados li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.sala-resultados p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.sala-resultados a {
+    display: inline-block;
+    margin: 8px 0 0 10px;
+}
+
+#mensaje-busqueda {
+    margin-top: 14px;
+}

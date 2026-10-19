@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $salaId = is_string($salaId) ? trim($salaId) : "";
     $participanteId = $_SESSION['participante_id'] ?? null;
 
-    if(!ctype_digit($salaId) || $salaId < 1){
+    if(!ctype_digit($salaId) || $salaId < 1 || $salaId > 2147483647){
         http_response_code(422);
         echo json_encode(["error" => "Debe existir un id de sala valido"]);
         exit;
@@ -80,102 +80,112 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $enlaceYoutube = $_POST["youtube_url"] ?? null;
-    $enlaceYoutube = is_string($enlaceYoutube) ? trim($enlaceYoutube) : "";
-    $tituloCancion = $_POST["titulo"] ?? null;
-    $tituloCancion = is_string($tituloCancion) ? trim($tituloCancion) : "";
-    $artista = $_POST["artista"] ?? null;
-    $artista = is_string($artista) ? trim($artista) : "";
-
-    $salaId = $_POST["salaId"] ?? null;
+    $enlaceYoutube = $_POST['youtube_url'] ?? '';
+    $tituloCancion = $_POST['titulo'] ?? '';
+    $artista = $_POST['artista'] ?? '';
+    $salaId = $_POST['salaId'] ?? '';
     $participanteId = $_SESSION['participante_id'] ?? null;
 
-    if($salaId === null){
-        http_response_code(422);
-        echo  json_encode(["error" => "Debe existir un id de sala"]);
-        exit;
-    }
+    $enlaceYoutube = is_string($enlaceYoutube) ? trim($enlaceYoutube) : '';
+    $tituloCancion = is_string($tituloCancion) ? trim($tituloCancion) : '';
+    $artista = is_string($artista) ? trim($artista) : '';
 
     if($participanteId === null){
-        http_response_code(422);
-        echo  json_encode(["error" => "Debe existir un id de participante"]);
+        http_response_code(401);
+        echo json_encode(['error' => 'Debes entrar a la sala primero.']);
         exit;
-        }
-
-    if($tituloCancion === ""){
-    http_response_code(422);
-    echo json_encode(["error" => "Debe existir un titulo"]);
-    exit;
-}
-
-
-    if($enlaceYoutube === ""){
-    http_response_code(422);
-    echo json_encode(["error" => "Debe existir un enlace de youtube"]);
-    exit;
-}
-
-if($artista === ""){
-    http_response_code(422);
-    echo json_encode(["error" => "Debe existir un artista"]);
-    exit;
-}
-
-$parametros = parse_url($enlaceYoutube,PHP_URL_QUERY);
-parse_str($parametros ?? "",$datosVideo);
-$youtubeId = $datosVideo["v"] ?? "";
-
-if($youtubeId === "" && parse_url($enlaceYoutube, PHP_URL_HOST) === "youtu.be"){
-    $youtubeId = trim(parse_url($enlaceYoutube, PHP_URL_PATH) ?? "", "/");
-}
-
-if(!is_string($youtubeId) || $youtubeId === ""){
-    http_response_code(422);
-    echo json_encode(["error" => "El enlace no contiene un identificador de video"]);
-    exit;
-}
-
-    try{
-
-
-    $sql = "INSERT INTO propuestas (artista,creada_en,estado,participante_id,sala_id,titulo,youtube_id) values (?,now(),?,?,?,?,?);";
-    
-    $consulta = $conexion->prepare($sql);
-
-    $consulta->execute([$artista,"pendiente",$participanteId,$salaId,$tituloCancion,$youtubeId]);
-    
-    $idPropuesta = $conexion->insert_id;
-
-    http_response_code(201);
-
-
-
-    echo json_encode([
-    'id' => $idPropuesta,
-    'titulo' => $tituloCancion,
-    'url' => $enlaceYoutube,
-    'artista' => $artista
-]);
-    exit;
-}catch (mysqli_sql_exception $error){
-     $conexion->rollback();
-
-    http_response_code(500);
-    echo json_encode(['error' => 'No se pudo crear la propuesta.']);
-    exit;
-
-
-}
-
     }
 
+    if(!is_string($salaId) || !ctype_digit($salaId) || $salaId < 1 || $salaId > 2147483647){
+        http_response_code(422);
+        echo json_encode(['error' => 'El id de sala no es valido.']);
+        exit;
+    }
 
+    if($tituloCancion === '' || mb_strlen($tituloCancion, 'UTF-8') > 150 ||
+       $artista === '' || mb_strlen($artista, 'UTF-8') > 100){
+        http_response_code(422);
+        echo json_encode(['error' => 'Completa titulo (hasta 150 caracteres) y artista (hasta 100).']);
+        exit;
+    }
 
+    if($enlaceYoutube === '' || strlen($enlaceYoutube) > 2000){
+        http_response_code(422);
+        echo json_encode(['error' => 'Ingresa un enlace de YouTube valido.']);
+        exit;
+    }
 
+    $url = parse_url($enlaceYoutube);
+    $hostVideo = strtolower($url['host'] ?? '');
+    $rutaVideo = $url['path'] ?? '';
+    $youtubeId = '';
 
+    if(($url['scheme'] ?? '') === 'https' || ($url['scheme'] ?? '') === 'http'){
+        if($hostVideo === 'youtu.be'){
+            $youtubeId = trim($rutaVideo, '/');
+        }
 
+        if($hostVideo === 'youtube.com' || $hostVideo === 'www.youtube.com' || $hostVideo === 'm.youtube.com'){
+            if($rutaVideo === '/watch'){
+                parse_str($url['query'] ?? '', $datosVideo);
+                $youtubeId = $datosVideo['v'] ?? '';
+            }elseif(str_starts_with($rutaVideo, '/shorts/') || str_starts_with($rutaVideo, '/embed/')){
+                $partes = explode('/', trim($rutaVideo, '/'));
+                $youtubeId = $partes[1] ?? '';
+            }
+        }
+    }
 
+    if(!is_string($youtubeId) || !preg_match('/^[A-Za-z0-9_-]{11}$/', $youtubeId)){
+        http_response_code(422);
+        echo json_encode(['error' => 'El enlace debe pertenecer a YouTube e identificar un video.']);
+        exit;
+    }
 
+    try{
+        $sql = "SELECT salas.estado FROM salas
+                INNER JOIN sala_participantes ON sala_participantes.sala_id = salas.id
+                INNER JOIN participantes ON participantes.id = sala_participantes.participante_id
+                WHERE salas.id = ? AND participantes.id = ?
+                AND salas.borrado IS NULL AND participantes.borrado IS NULL";
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute([$salaId, $participanteId]);
+        $sala = $consulta->get_result()->fetch_assoc();
+
+        if($sala === null){
+            http_response_code(404);
+            echo json_encode(['error' => 'La sala no existe o no tienes acceso.']);
+            exit;
+        }
+
+        if($sala['estado'] !== 'abierta'){
+            http_response_code(409);
+            echo json_encode(['error' => 'La sala esta cerrada.']);
+            exit;
+        }
+
+        $sql = "INSERT INTO propuestas (artista,creada_en,estado,participante_id,sala_id,titulo,youtube_id)
+                VALUES (?,NOW(),?,?,?,?,?)";
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute([$artista, 'pendiente', $participanteId, $salaId, $tituloCancion, $youtubeId]);
+        $idPropuesta = $conexion->insert_id;
+
+        http_response_code(201);
+        echo json_encode([
+            'id' => $idPropuesta,
+            'titulo' => $tituloCancion,
+            'url' => $enlaceYoutube,
+            'artista' => $artista
+        ]);
+        exit;
+    }
+    catch(mysqli_sql_exception $error){
+        error_log($error->getMessage());
+        http_response_code(500);
+        echo json_encode(['error' => 'No se pudo crear la propuesta.']);
+        exit;
+    }
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
 
@@ -183,7 +193,7 @@ if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     $propuestaId = is_string($propuestaId) ? trim($propuestaId) : "";
     $participanteId = $_SESSION['participante_id'] ?? null;
 
-    if(!ctype_digit($propuestaId) || $propuestaId < 1){
+    if(!ctype_digit($propuestaId) || $propuestaId < 1 || $propuestaId > 2147483647){
         http_response_code(422);
         echo json_encode(["error" => "Debe existir un id de propuesta valido"]);
         exit;
@@ -241,8 +251,8 @@ if($_SERVER['REQUEST_METHOD'] === 'PUT'){
     $propuestaId = $_GET["id"] ?? "";
     $participanteId = $_SESSION['participante_id'] ?? null;
 
-    if(!is_string($salaId) || !ctype_digit($salaId) || $salaId < 1 ||
-       !is_string($propuestaId) || !ctype_digit($propuestaId) || $propuestaId < 1){
+    if(!is_string($salaId) || !ctype_digit($salaId) || $salaId < 1 || $salaId > 2147483647 ||
+       !is_string($propuestaId) || !ctype_digit($propuestaId) || $propuestaId < 1 || $propuestaId > 2147483647){
         http_response_code(422);
         echo json_encode(["error" => "Falta el id de la sala o de la propuesta"]);
         exit;
@@ -337,4 +347,6 @@ if($_SERVER['REQUEST_METHOD'] === 'PUT'){
     }
 }
 
-?>
+header('Allow: GET, POST, PUT, DELETE');
+http_response_code(405);
+echo json_encode(['error' => 'Metodo no permitido.']);

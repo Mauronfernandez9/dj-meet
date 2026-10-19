@@ -19,8 +19,8 @@ $codigo = $_GET["codigo"] ?? "";
 
 $codigo = is_string($codigo) ? strtoupper(trim($codigo)) : "";
 
-if($codigo === ""){
-    http_response_code(400);
+if(!preg_match('/^[A-F0-9]{8}$/', $codigo)){
+    http_response_code(422);
     echo json_encode(['error' => "No hay un codigo que permita localizar una sala"]);
     exit;
 }
@@ -28,6 +28,7 @@ if($codigo === ""){
 
 
 
+try{
 $sql = "SELECT id,nombre,estado,creada_en,codigo FROM salas WHERE borrado is null and codigo = ?";
 
 $consulta = $conexion->prepare($sql);
@@ -70,6 +71,13 @@ if ($participacion === null) {
 $sala['rol'] = $participacion['rol'];
 echo json_encode($sala);
 exit;
+}
+catch(mysqli_sql_exception $error){
+    error_log($error->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'No se pudo consultar la sala.']);
+    exit;
+}
 
 }
 
@@ -78,8 +86,9 @@ if($_SERVER["REQUEST_METHOD"] == 'POST'){
 $nombreSala = $_POST["nombre_sala"] ?? '';
 $nombreSala = is_string($nombreSala) ? trim($nombreSala) : '';
 
-if($nombreSala === ''){
-    echo json_encode(['error' => 'la sala debe tener un nombre']);
+if($nombreSala === '' || mb_strlen($nombreSala, 'UTF-8') > 100){
+    http_response_code(422);
+    echo json_encode(['error' => 'El nombre de la sala debe tener entre 1 y 100 caracteres.']);
     exit;
 }
 $estado = "abierta";
@@ -89,10 +98,10 @@ $nombreAnfitrion = $_POST['nombre_anfitrion'] ?? '';
 
 $nombreAnfitrion = is_string($nombreAnfitrion) ? trim($nombreAnfitrion) : '';
 
-if($nombreAnfitrion === ''){
+if($nombreAnfitrion === '' || mb_strlen($nombreAnfitrion, 'UTF-8') > 40){
     http_response_code(422);
     echo json_encode([
-        'error' => "Debe exisitir un nombre de anfitrion"
+        'error' => "El nombre del anfitrion debe tener entre 1 y 40 caracteres"
     ]);
     exit;
 }
@@ -130,6 +139,7 @@ try{
 
     $conexion->commit();
 
+    session_regenerate_id(true);
     $_SESSION['participante_id'] = $participanteId;
 
     http_response_code(201);
@@ -146,6 +156,7 @@ try{
 }
 catch (mysqli_sql_exception $error){
     $conexion->rollback();
+    error_log($error->getMessage());
 
     http_response_code(500);
     echo json_encode(['error' => 'No se pudo crear la sala.']);
@@ -154,9 +165,6 @@ catch (mysqli_sql_exception $error){
 
 }
 
-
-
-?>
-
-
-
+header('Allow: GET, POST');
+http_response_code(405);
+echo json_encode(['error' => 'Metodo no permitido.']);

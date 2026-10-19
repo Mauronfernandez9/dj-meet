@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 $propuestaId = $_POST["propuesta_id"] ?? "";
 $participanteId = $_SESSION['participante_id'] ?? null;
 
-if(!is_string($propuestaId) || !ctype_digit($propuestaId) || $propuestaId < 1){
+if(!is_string($propuestaId) || !ctype_digit($propuestaId) || $propuestaId < 1 || $propuestaId > 2147483647){
     http_response_code(422);
     echo json_encode(["error" => "Falta el id de la propuesta"]);
     exit;
