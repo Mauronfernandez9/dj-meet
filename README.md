@@ -100,35 +100,3 @@ La guía está en [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md). El Dockerfile prepar
 Se usa un único servicio web y una base con almacenamiento persistente. Las sesiones PHP viven en el servicio web: no se debe escalar a varias réplicas con esta implementación. Un nuevo despliegue puede cerrar las sesiones, aunque las salas y canciones permanecen en MySQL. Volver a desplegar no requiere volver a importar el SQL.
 
 El despliegue utiliza el Dockerfile del repositorio, variables de entorno, las cinco tablas importadas en MySQL y un dominio público HTTPS. Al arrancar, se desactivan los MPM event y worker, se habilita prefork y se comprueba la configuración de Apache. El recorrido de verificación pública se detalla a continuación.
-
-## Pruebas antes de entregar
-
-1. Crear sala y entrar desde otro navegador. El anfitrión puede seleccionar; el invitado no.
-2. Buscar una canción, usar sus datos, pegar una URL válida y agregarla. Probar también la carga manual.
-3. Votar desde ambos navegadores; verificar el orden y que un voto repetido no se duplique.
-4. Seleccionar una propuesta, repetir la selección por API y avanzar con Siguiente. El cambio persiste al recargar.
-5. Borrar una propuesta propia; intentar borrar una ajena debe fallar.
-6. Enviar título vacío, sala inexistente y URL ajena a YouTube; revisar los códigos HTTP y mensajes JSON.
-7. Poner temporalmente CATALOGO_ACTIVO=0, reiniciar el servicio y buscar: debe avisar el problema y permitir proponer manualmente. Volver a habilitarlo.
-8. Bloquear las peticiones a YouTube con DevTools: la cola y las operaciones deben seguir funcionando. Desbloquear después.
-9. Repetir el recorrido en la URL HTTPS desde un celular con datos móviles.
-10. Revisar código e historial de Git por secretos, completar URLs y verificar el acceso al repositorio de ambos docentes si es privado.
-
-## Limitaciones conocidas
-
-- Participantes temporales: el nombre no identifica una cuenta. La sesión del navegador es la identidad. Sin esa sesión se crea otro participante; no hay recuperación del rol de anfitrión.
-- Una misma sesión reutiliza su participante; escribir otro nombre al entrar no cambia el ya guardado.
-- La selección no confirma que YouTube esté sonando. El navegador puede pedir un clic para reproducir.
-- Siguiente es manual: no hay avance automático cuando termina el video.
-- Cada cinco segundos se actualiza la cola; no se usan WebSockets.
-- No hay pantalla para editar título/artista después de guardar. El PUT del CRUD modifica el estado.
-- El catálogo puede no encontrar una canción y no garantiza que coincida con el video elegido.
-- No hay interfaz para cerrar salas ni administrar usuarios.
-- No se guardan portadas; imagen_url queda reservado para una posible ampliación.
-- El script SQL requiere una base vacía previamente creada o provista por el hosting.
-
-## Participación y entrega
-
-Con GitHub la consigna exige commits de ambos integrantes que reflejen trabajo real. Revisar los aportes antes de entregar; no se atribuye trabajo a otra persona automáticamente.
-
-`ENTREGA.txt` contiene el texto para el campus, las URLs públicas y el proveedor utilizado. Fecha indicada por la consigna: 20/10/2026 a las 23:59.
