@@ -4,11 +4,11 @@ Aplicación para elegir entre amigos qué música escuchar. El anfitrión crea u
 
 Trabajo práctico 1 de Aplicaciones Móviles y Cloud Computing.
 
-- Integrantes: **Fernandez Mauro Nicolas** y **Franco**.
-- Frontend público: **PENDIENTE de despliegue**.
-- API pública: **PENDIENTE de despliegue**, ruta `/api/propuestas.php?salaId=ID`.
+- Integrantes: **Fernandez Mauro Nicolas** y **Franco Cobatti**.
+- Frontend público: https://dj-meet-production.up.railway.app/
+- API pública: https://dj-meet-production.up.railway.app/api/propuestas.php (requiere sesión y el parámetro `?salaId=ID`).
 - Repositorio: https://github.com/Mauronfernandez9/dj-meet
-- Estado: preparado para probar y desplegar; completar las URLs antes de entregar.
+- Estado: desplegada en Railway con HTTPS.
 
 ## Cómo correrla en local
 
@@ -93,13 +93,13 @@ Documentación: https://performance-partners.apple.com/search-api
 
 ## Despliegue
 
-Proveedor propuesto: **Railway**, modelo PaaS. Permite ejecutar PHP/Apache y MySQL dentro del mismo proyecto y configurar secretos por entorno. Su elección debe confirmarse revisando el plan disponible y su costo; no se presupone alojamiento gratuito permanente.
+Proveedor utilizado: **Railway**, modelo PaaS. PHP/Apache y MySQL se ejecutan como servicios separados dentro del mismo proyecto, con secretos configurados mediante variables de entorno. El servicio y su base deben mantenerse disponibles durante la corrección, según el plan contratado o el saldo de prueba disponible.
 
 La guía está en [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md). El Dockerfile prepara PHP 8.2, Apache y mysqli; cURL y mbstring vienen en la imagen oficial. Copia sólo los archivos que usa la web, sin Git, documentación ni SQL. Apache escucha en 80. El dominio público termina HTTPS en Railway y conecta con ese puerto.
 
 Se usa un único servicio web y una base con almacenamiento persistente. Las sesiones PHP viven en el servicio web: no se debe escalar a varias réplicas con esta implementación. Un nuevo despliegue puede cerrar las sesiones, aunque las salas y canciones permanecen en MySQL. Volver a desplegar no requiere volver a importar el SQL.
 
-**Pendiente:** construir la imagen en Railway, cargar variables, importar la base vacía, generar dominio y ejecutar las pruebas públicas. No se declara el despliegue como realizado.
+El despliegue utiliza el Dockerfile del repositorio, variables de entorno, las cinco tablas importadas en MySQL y un dominio público HTTPS. Al arrancar, se desactivan los MPM event y worker, se habilita prefork y se comprueba la configuración de Apache. El recorrido de verificación pública se detalla a continuación.
 
 ## Pruebas antes de entregar
 
@@ -131,4 +131,4 @@ Se usa un único servicio web y una base con almacenamiento persistente. Las ses
 
 Con GitHub la consigna exige commits de ambos integrantes que reflejen trabajo real. Revisar los aportes antes de entregar; no se atribuye trabajo a otra persona automáticamente.
 
-`ENTREGA.txt` contiene el texto para el campus. Completar las URLs públicas y el proveedor confirmado. Fecha indicada por la consigna: 20/10/2026 a las 23:59.
+`ENTREGA.txt` contiene el texto para el campus, las URLs públicas y el proveedor utilizado. Fecha indicada por la consigna: 20/10/2026 a las 23:59.

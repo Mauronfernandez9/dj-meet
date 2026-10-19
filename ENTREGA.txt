@@ -5,8 +5,9 @@ Integrantes (apellido y nombre):
 - Fernandez Mauro Nicolas
 - Franco Cobatti
 
-URL pública del frontend: PENDIENTE
-URL pública de la API: PENDIENTE (dominio/api/propuestas.php?salaId=ID)
+URL pública del frontend: https://dj-meet-production.up.railway.app/
+URL pública de la API: https://dj-meet-production.up.railway.app/api/propuestas.php
+Para consultar propuestas, agregar ?salaId=ID con el identificador de la sala y una sesión activa.
 
 Para probar: crear una sala en el inicio y luego abrirla desde otro navegador con el código.
 La API usa la sesión de ese navegador. Se puede obtener el id de sala en la respuesta de api/salas.php?codigo=CODIGO.
@@ -14,7 +15,7 @@ La API usa la sesión de ese navegador. Se puede obtener el id de sala en la res
 Repositorio: https://github.com/Mauronfernandez9/dj-meet
 
 
-Proveedor cloud: PENDIENTE de confirmar y desplegar (guía preparada para Railway).
+Proveedor cloud: Railway (PaaS). Servicio PHP/Apache en Docker y servicio MySQL separado.
 Servicios externos: YouTube desde el navegador; iTunes Search API desde PHP.
 
 

@@ -1,6 +1,8 @@
 # Despliegue guiado de DJ Meet
 
-Esta guía prepara Railway como opción PaaS. El despliegue aún no está realizado. Primero revisá el plan disponible en tu cuenta: ejecutar la web y MySQL consume recursos y la prueba gratuita no garantiza que alcance para todo el período de corrección. No es necesario contratar nada antes de revisar esto.
+DJ Meet está desplegado en Railway como PaaS: https://dj-meet-production.up.railway.app/
+
+Esta guía conserva los pasos para reproducir el despliegue. Ejecutar la web y MySQL consume recursos; revisar el plan y el saldo disponible para mantener ambos servicios durante el período de corrección.
 
 ## 1. Entender qué vamos a subir
 
@@ -36,7 +38,7 @@ No copies la contraseña al chat ni al código. Las variables del servicio web h
 
 ## 4. Conectar el repositorio y configurar PHP
 
-Dentro del mismo proyecto, agregá un servicio desde GitHub y elegí el repositorio dj-meet y la rama correcta. Dejá la raíz del proyecto en la raíz del repositorio. Railway detecta el archivo Dockerfile. No agregues un Start Command: la imagen ya arranca Apache.
+Dentro del mismo proyecto, agregá un servicio desde GitHub y elegí el repositorio dj-meet y la rama correcta. Dejá la raíz del proyecto en la raíz del repositorio. Railway detecta el archivo Dockerfile. Dejá Custom Start Command vacío: el CMD del Dockerfile desactiva mpm_event y mpm_worker, habilita mpm_prefork, comprueba la configuración e inicia Apache.
 
 En Variables del servicio web configurá estas referencias. El ejemplo supone que el servicio de base se llama exactamente MySQL; si tiene otro nombre, elegilo desde el selector del panel.
 
@@ -54,7 +56,11 @@ Son referencias, no contraseñas pegadas en Git. Aplicá los cambios y desplegá
 
 ## 5. Importar las tablas
 
-La base cloud ya existe; su nombre puede no ser dj_meet. Hay que importar el script en la base indicada por MYSQLDATABASE, sin crear otra distinta.
+La base cloud ya existe; su nombre puede no ser dj_meet. En una instalación nueva, importar el script en la base indicada por MYSQLDATABASE. En el despliegue actual las tablas ya fueron creadas.
+
+También se puede importar desde MySQL → Console en Railway: ejecutar `mysql -u "$MYSQLUSER" -p "$MYSQLDATABASE"`, ingresar la contraseña cuando se solicite y pegar el contenido completo de `sql/dj_meet_script.sql` en el indicador `mysql>`. Verificar con `SHOW TABLES;` que aparezcan las cinco tablas y que la ejecución no haya mostrado errores. El archivo se ejecuta una sola vez sobre una base vacía.
+
+Como alternativa, los pasos siguientes permiten importar desde un cliente en la computadora.
 
 Para importar desde tu computadora necesitás la conexión **pública** de MySQL. En MySQL → Settings → Networking habilitá Public Access/TCP Proxy. Usá host y puerto públicos; el host privado terminado en railway.internal sólo sirve entre servicios de Railway.
 
@@ -84,7 +90,7 @@ Una página de inicio visible no demuestra por sí sola que MySQL funciona: cre�
 - Abrir desde un celular con datos móviles.
 - Verificar estados HTTP con Network y que los errores sean JSON.
 - Probar la caída del catálogo como se explica en README.
-- Completar URLs e integrantes en README y ENTREGA.txt.
+- Verificar URLs e integrantes en README y ENTREGA.txt.
 - Conservar el servicio y la base durante la corrección. No borrar el volumen.
 - Un push a la rama vinculada puede iniciar otro despliegue; revisar que termine bien. No volver a importar el SQL.
 - Mantener una sola réplica web porque las sesiones se guardan en archivos locales.
