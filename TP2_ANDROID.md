@@ -23,13 +23,13 @@ Los datos necesarios se envían entre las pantallas mediante `Intent` y `putExtr
 
 El cliente utiliza `HttpURLConnection`. Las solicitudes se ejecutan fuera del hilo principal y la respuesta se muestra nuevamente en la interfaz.
 
-Durante las pruebas con el emulador, la dirección base es:
+La dirección pública utilizada por la aplicación es:
 
 ```text
-http://10.0.2.2/dj-meet/api/
+https://dj-meet-production-efe3c1e7.up.railway.app/api/
 ```
 
-`10.0.2.2` permite que el emulador acceda al servidor Apache de XAMPP que está funcionando en la computadora.
+La dirección HTTPS permite utilizar la aplicación sin depender de XAMPP ni de la red local de la computadora.
 
 Operaciones utilizadas:
 
@@ -53,6 +53,4 @@ La aplicación requiere Android 7.0 (API 24) o una versión posterior.
 
 ## Estado de la entrega
 
-La aplicación se prueba de forma local porque finalizó el período gratuito de Railway y para volver a activar el despliegue sería necesario pagar una membresía. Por este motivo, durante el desarrollo utilizamos XAMPP para ejecutar Apache, PHP y MariaDB en la computadora.
-
-La comunicación local entre Android y el backend está configurada. Para probar la aplicación fuera de la computadora se deberá reemplazar la dirección local por la URL HTTPS donde se despliegue nuevamente el backend.
+El backend PHP, el frontend web y la base MySQL están publicados en Railway. El cliente Android utiliza la URL pública HTTPS de la API y puede ejecutarse sin XAMPP.

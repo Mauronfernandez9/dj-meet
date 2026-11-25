@@ -5,8 +5,8 @@ Integrantes (apellido y nombre):
 - Fernandez Mauro Nicolas
 - Franco Cobatti
 
-URL pública del frontend: https://dj-meet-production.up.railway.app/
-URL pública de la API: https://dj-meet-production.up.railway.app/api/propuestas.php
+URL pública del frontend: https://dj-meet-production-efe3c1e7.up.railway.app/
+URL pública de la API: https://dj-meet-production-efe3c1e7.up.railway.app/api/propuestas.php
 Para consultar propuestas, agregar ?salaId=ID con el identificador de la sala y una sesión activa.
 
 Para probar: crear una sala en el inicio y luego abrirla desde otro navegador con el código.

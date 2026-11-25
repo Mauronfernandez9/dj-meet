@@ -10,10 +10,10 @@ Aplicación para elegir entre amigos qué música escuchar. El anfitrión crea u
 Trabajo práctico 1 de Aplicaciones Móviles y Cloud Computing.
 
 - Integrantes: **Fernandez Mauro Nicolas** y **Franco Cobatti**.
-- Frontend público: https://dj-meet-production.up.railway.app/
-- API pública: https://dj-meet-production.up.railway.app/api/propuestas.php (requiere sesión y el parámetro `?salaId=ID`).
+- Frontend público: https://dj-meet-production-efe3c1e7.up.railway.app/
+- API pública: https://dj-meet-production-efe3c1e7.up.railway.app/api/propuestas.php (requiere sesión y el parámetro `?salaId=ID`).
 - Repositorio: https://github.com/Mauronfernandez9/dj-meet
-- Estado: el despliegue de Railway está pausado porque finalizó el período gratuito y su reactivación requiere una membresía paga. El proyecto se ejecuta localmente con XAMPP.
+- Estado: frontend, API PHP y MySQL desplegados en Railway con HTTPS.
 
 ## Cómo correrla en local
 

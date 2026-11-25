@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://10.0.2.2/dj-meet/api/";
+    public static final String BASE_URL = "https://dj-meet-production-efe3c1e7.up.railway.app/api/";
     private static final Handler handler = new Handler(Looper.getMainLooper());
 
     static {
