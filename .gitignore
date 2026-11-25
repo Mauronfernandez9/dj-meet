@@ -5,3 +5,11 @@
 /sql/*.xlsx
 /sql/*.csv
 .vscode/
+
+# Android Studio / Gradle
+/android/.gradle/
+/android/.idea/
+/android/**/build/
+/android/local.properties
+/android/*.iml
+/android/captures/

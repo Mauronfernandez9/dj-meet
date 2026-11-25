@@ -11,6 +11,14 @@ $password = getenv('DB_PASS');
 $base = getenv('DB_NAME');
 $puerto = getenv('DB_PORT');
 
+if(getenv('APP_ENV') !== 'production'){
+    $host = '127.0.0.1';
+    $usuario = 'root';
+    $password = '';
+    $base = 'dj_meet';
+    $puerto = '3306';
+}
+
 if(getenv('APP_ENV') === 'production' && (!$host || !$usuario || $password === false || !$base)){
     http_response_code(500);
     echo json_encode(['error' => 'Falta configurar la conexion a la base de datos.']);

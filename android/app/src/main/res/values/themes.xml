@@ -1,0 +1,6 @@
+<resources>
+    <style name="Base.Theme.DjMeetAndroidJav" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.DjMeetAndroidJav" parent="Base.Theme.DjMeetAndroidJav" />
+</resources>
